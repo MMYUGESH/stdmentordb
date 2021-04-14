@@ -20,7 +20,10 @@ app.get("/all", async (req, res) => {
         let db = clientInfo.db("stdmentr");
         let data = await db.collection("mentr").find().toArray();
         res.status(200).json(data);
+        res.send(data)
+        console.log("got all list of mentors")
         clientInfo.close();
+
     } catch (error) {
         console.log(error);
     }
@@ -34,7 +37,10 @@ app.get("/all_student", async (req, res) => {
         let db = clientInfo.db("stdmentr");
         let data = await db.collection("std").find().toArray();
         res.status(200).json(data);
+        res.send(data)
+        console.log("got all list of students")
         clientInfo.close();
+
     } catch (error) {
         console.log(error);
     }
@@ -56,6 +62,8 @@ app.post("/create_student", async (req, res) => {
         }
         await db.collection("std").insertOne(newStudent);
         res.status(200).json({ message: "student Created" });
+        res.send(newStudent)
+        console.log("student created")
         student.close();
     } catch (err) {
         console.log(err)
@@ -76,6 +84,8 @@ app.post("/create_mentor", async (req, res) => {
         }
         await db.collection("mentr").insertOne(newMentor);
         res.status(200).json({ message: "mentor Created" });
+        console.log("mentor created created")
+        res.send(newMentor);
         mentor.close();
     } catch (err) {
         console.log(err)
